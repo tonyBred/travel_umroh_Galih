@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Paket Perjalanan Tree View -->
+ 
+        <record model="ir.ui.view" id="paket_perjalanan_tree_view">
+            <field name="name">paket.perjalanan.tree</field>
+            <field name="model">paket.perjalanan</field>
+            <field name="arch" type="xml">
+                <tree string="Paket Perjalanan">
+                    <field name="name"/>
+                    <field name="product_id"/>
+                    <field name="tgl_berangkat"/>
+                    <field name="tgl_pulang"/>
+                    <field name="quota"/>
+                    <field name="quota_progress" widget="progressbar"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+            
+        <!-- Paket Perjalanan Form View -->
+            
+        <record model="ir.ui.view" id="paket_perjalanan_form_view">
+            <field name="name">paket.perjalanan.form</field>
+            <field name="model">paket.perjalanan</field>
+            <field name="arch" type="xml">
+                <form string="Form Paket Perjalanan">
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirm" states="draft" groups="travel_umroh.group_paket_perjalanan_manager" class="btn-primary"/>
+                        <button name="update_jamaah" type="object" string="Update Jamaah" states="confirm" class="btn-primary"/>
+                        <button name="cetak_jamaah_xls" type="object" string="Cetak Jamaah" class="btn-primary" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="tgl_berangkat"/>
+                            <field name="tgl_pulang"/>
+                            <field name="quota"/>
+                            <field name="quota_progress" widget="progressbar"/>
+                            <field name="data_file" filename="filename" widget="binary" attrs="{'readonly':True}"/>
+                        </group>
+                        <notebook>
+                            <page string="Hotel Lines">
+                                <field name="hotel_line">
+                                    <tree editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="tgl_awal"/>
+                                        <field name="tgl_akhir"/>
+                                        <field name="kota"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Airline Lines">
+                                <field name="pesawat_line">
+                                    <tree editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="tgl_berangkat"/>
+                                        <field name="kota_asal"/>
+                                        <field name="kota_tujuan"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Schedule Lines">
+                                <field name="acara_line">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="tgl"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Jamaah Lines">
+                                <field name="peserta_line">
+                                    <tree editable="bottom">
+                                        <field name="order_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="name"/>
+                                        <field name="gender" />
+                                        <field name="tipe_kamar" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group>
+                            <field name="note" placeholder="Notes" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+            
+        <!-- Paket Perjalanan Sequence -->
+            
+        <record id="paket_perjalanan_sequence" model="ir.sequence">
+            <field name="name">Paket Perjalanan</field>
+            <field name="code">paket.perjalanan</field>
+            <field name="prefix">PP/%(month)s/%(y)s/</field>
+            <field name="padding">4</field>
+        </record>
+        
+        <!-- Paket Perjalanan Action -->
+        
+        <record model="ir.actions.act_window" id="paket_perjalanan_action">
+            <field name="name">Paket Perjalanan</field>
+            <field name="res_model">paket.perjalanan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!-- Paket Perjalanan Menu Item-->
+        
+        <menuitem id="paket_perjalanan_menu" name="Paket Perjalanan" parent="sale.sale_menu_root" action="paket_perjalanan_action" sequence="7"/>
+    
+    </data>
+</odoo>

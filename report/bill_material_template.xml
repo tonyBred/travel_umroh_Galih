@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="bill_material_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+
+                        <h1>Delivery Order</h1><br></br>
+
+                        <table>
+                            <tr>
+                                <td style="padding-right: 500px">
+                                    Customer: <t t-esc="doc.partner_id.name" />
+                                </td>
+                                <td>
+                                    No: <t t-esc="doc.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-right: 500px">
+                                    Address: <t t-esc="doc.partner_id.street" />
+                                </td>
+                                <td>
+                                    Date: <t t-esc="doc.date_order" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Phone: <t t-esc="doc.partner_id.mobile" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Qty</th>
+                                    <th>UoM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.order_line" t-as="product">
+                                    <t t-if="product.product_id.product_tmpl_id.bom_count>0">
+                                        <t t-foreach="product.product_id.product_tmpl_id.bom_ids.bom_line_ids" t-as="bom">
+                                            <tr>
+                                                <td>
+                                                    <span t-field="bom.product_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="bom.product_qty"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="bom.product_uom_id.name"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <center>
+                            <div style="width:300px" class="border border-dark">
+                                <p>
+                                    Mengetahui
+                                </p>
+                                <br></br><br></br>
+                                <p>
+                                    Administrator
+                                </p>
+                            </div>
+                        </center>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_bill_material" model="ir.actions.report">
+        <field name="name">Delivery Order</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">travel_umroh.bill_material_template</field>
+        <field name="report_file">travel_umroh.bill_material_template</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record  id="report_bill_tagihan" model="ir.actions.report">
+        <field name="name">Bill Tagihan</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">travel_umroh.bill_tagihan_template</field>
+        <field name="report_file">travel_umroh.bill_tagihan_template</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

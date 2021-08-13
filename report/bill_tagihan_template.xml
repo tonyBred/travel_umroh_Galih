@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="bill_tagihan_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+
+                        <h1>Customer Invoices</h1><br></br>
+
+                        <table>
+                            <tr>
+                                <td style="padding-right: 500px">
+                                    Customer: <t t-esc="doc.partner_id.name" />
+                                </td>
+                                <td>
+                                    No: <t t-esc="doc.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-right: 500px">
+                                    Address: <t t-esc="doc.partner_id.street" />
+                                </td>
+                                <td>
+                                    Date: <t t-esc="doc.date_order" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Phone: <t t-esc="doc.partner_id.mobile" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br></br>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Qty (UoM)</th>
+                                    <th>Price Unit</th>
+                                    <th>Sub Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.order_line" t-as="product">
+                                    <t t-if="product.product_uom_qty>0">
+                                        <tr>
+                                            <td>
+                                                <span t-field="product.product_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="product.product_uom_qty"/>  <span t-field="product.product_uom.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="product.price_unit"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="product.price_subtotal"/>
+                                            </td>
+                                            
+                                        </tr>
+                                    </t>
+                                </t>
+                                <tr>
+                                    <td colspan="3">
+                                        Total
+                                    </td>
+                                    <td>
+                                        <span t-field="doc.amount_total"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <br></br>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr colspan="2">
+                                    <td>
+                                        <h1>Payment</h1>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.invoice_ids" t-as="invoice">
+                                    <tr>
+                                        <td>
+                                            <span t-field="invoice.journal_id.type"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="invoice.invoice_date"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="invoice.amount_total_signed"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <center>
+                            <div style="width:300px" class="border border-dark">
+                                <p>
+                                    Mengetahui
+                                </p>
+                                <br></br><br></br>
+                                <p>
+                                    Administrator
+                                </p>
+                            </div>
+                        </center>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
